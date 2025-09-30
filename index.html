@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Concierge Admin">
+    <meta name="theme-color" content="#0a3d62">
+    <title>Admin ConciergeBot - La Fantaisie Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMzAiIGZpbGw9IiMwYTNkNjIiLz4KPHBhdGggZD0iTTk2IDU2QzEwNy4wNDYgNTYgMTE2IDY0Ljk1NCAxMTYgNzZDMTE2IDg3LjA0NiAxMDcuMDQ2IDk2IDk2IDk2Qzg0Ljk1NCA5NiA3NiA4Ny4wNDYgNzYgNzZDNzYgNjQuOTU0IDg0Ljk1NCA1NiA5NiA1NloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMjggMTI4QzEyOCAxMzkuMDQ2IDExOS4wNDYgMTQ4IDEwOCAxNDhIODRDNzIuOTU0IDE0OCA2NCAxMzkuMDQ2IDY0IDEyOFYxMTJDNjQgMTAwLjk1NCA3Mi45NTQgOTIgODQgOTJIMTA4QzExOS4wNDYgOTIgMTI4IDEwMC45NTQgMTI4IDExMlYxMjhaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-light: #3c6382;
+            --secondary-color: #e58e26;
+            --secondary-light: #ffb142;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 40px rgba(0,0,0,0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .warning-banner {
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+            font-size: 0.9rem;
+        }
+
+        .password-gate {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            max-width: 420px;
+            margin: 80px auto;
+            text-align: center;
+        }
+
+        .password-gate h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .password-gate p {
+            color: var(--light-text);
+            margin-bottom: 25px;
+        }
+
+        .password-gate input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius-sm);
+            margin: 15px 0;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f8f9fa;
+        }
+
+        .password-gate input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(10, 61, 98, 0.1);
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(10, 61, 98, 0.2);
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(10, 61, 98, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .header p {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 25px;
+            height: calc(100vh - 200px);
+        }
+
+        .conversations-list {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .conversations-header {
+            padding: 20px 25px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .conversations-header h2 {
+            font-size: 1.3rem;
+        }
+
+        .conversations-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .conversations-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .conversation-item {
+            padding: 18px;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid #e9ecef;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .conversation-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .conversation-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .conversation-item:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .conversation-item.active {
+            background: rgba(10, 61, 98, 0.08);
+            border-color: var(--primary-color);
+        }
+
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .conversation-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .conversation-time {
+            font-size: 0.8rem;
+            color: var(--light-text);
+        }
+
+        .conversation-preview {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .conversation-badge {
+            background: var(--danger-color);
+            color: white;
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .chat-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px 25px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h2 {
+            font-size: 1.3rem;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 16px 20px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .message.admin {
+            align-self: flex-start;
+            background: white;
+            border-bottom-left-radius: 6px;
+        }
+
+        .message.receptionist {
+            align-self: flex-end;
+            background: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 6px;
+        }
+
+        .message.admin .message-time {
+            text-align: left;
+        }
+
+        .message.receptionist .message-time {
+            text-align: right;
+        }
+
+        .chat-input {
+            padding: 20px 25px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            background: white;
+        }
+
+        .chat-input textarea {
+            flex: 1;
+            border: 1px solid #e9ecef;
+            border-radius: 24px;
+            padding: 14px 20px;
+            resize: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+            max-height: 120px;
+            outline: none;
+            transition: var(--transition);
+            background: #f8f9fa;
+        }
+
+        .chat-input textarea:focus {
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(10, 61, 98, 0.1);
+        }
+
+        .chat-send {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(10, 61, 98, 0.2);
+        }
+
+        .chat-send:hover:not(:disabled) {
+            background: var(--primary-light);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(10, 61, 98, 0.3);
+        }
+
+        .chat-send:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        .chat-send:disabled {
+            background: var(--light-text);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .no-conversation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--light-text);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .no-conversation i {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--light-text);
+            opacity: 0.5;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--light-text);
+        }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .conversations-list {
+                height: 350px;
+            }
+            
+            .chat-container {
+                height: 500px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .password-gate {
+                margin: 40px 20px;
+                padding: 30px 20px;
+            }
+            
+            .conversations-header, .chat-header {
+                padding: 15px 20px;
+            }
+            
+            .chat-messages {
+                padding: 20px;
+            }
+            
+            .chat-input {
+                padding: 15px 20px;
+            }
+            
+            .message {
+                max-width: 90%;
+                padding: 14px 16px;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-banner">
+        ⚠️ ATTENTION: Cette application admin n'a pas d'authentification. Ne partagez pas ce lien.
+    </div>
+
+    <div id="passwordGate" class="password-gate" style="display: none;">
+        <h3>Accès Administrateur</h3>
+        <p>Veuillez entrer le mot de passe pour continuer</p>
+        <input type="password" id="passwordInput" placeholder="Mot de passe">
+        <button class="btn" onclick="checkPassword()">Accéder</button>
+        <p id="passwordError" style="color: var(--danger-color); margin-top: 10px; display: none;">Mot de passe incorrect</p>
+    </div>
+
+    <div id="adminApp" class="container" style="display: none;">
+        <div class="header">
+            <h1>ConciergeBot - Administration</h1>
+            <p>Gérez les conversations avec le personnel de réception</p>
+        </div>
+
+        <div class="layout">
+            <div class="conversations-list">
+                <div class="conversations-header">
+                    <h2>Conversations</h2>
+                    <span id="conversationsCount" class="conversations-count">0</span>
+                </div>
+                <div class="conversations-container" id="conversationsContainer">
+                    <div class="loading">
+                        <div class="loader"></div>
+                        <span>Chargement des conversations...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2 id="currentConversationName">Sélectionnez une conversation</h2>
+                    <div class="chat-status">
+                        <span class="status-badge" id="conversationStatus">-</span>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="no-conversation">
+                        <div>
+                            <i class="fas fa-comments"></i>
+                            <p>Sélectionnez une conversation pour commencer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input" id="chatInput" style="display: none;">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Tapez votre réponse..." 
+                        rows="1"
+                    ></textarea>
+                    <button id="sendButton" class="chat-send">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // =============================================
+        // CONFIGURATION FIREBASE - À MODIFIER
+        // =============================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDnNCzZJ2Q6OxQljRxNeQMOAcG7ty92YLQ",
+            authDomain: "lafantaisiehotel-36ad5.firebaseapp.com",
+            projectId: "lafantaisiehotel-36ad5",
+            storageBucket: "lafantaisiehotel-36ad5.appspot.com",
+            messagingSenderId: "217186304957",
+            appId: "1:217186304957:web:6645ad4a1f867fd47008d4",
+            measurementId: "G-TNEJNRYSM3"
+        };
+        // =============================================
+        // UTILISEZ LA MÊME CONFIGURATION QUE VOTRE APP PRINCIPALE
+        // =============================================
+        
+        // Configuration du mot de passe (optionnel)
+        const ADMIN_PASSWORD = "admin123"; // Changez ce mot de passe
+        
+        // Variables globales
+        let db;
+        let currentConversationId = null;
+        let conversationsListener = null;
+        let messagesListener = null;
+
+        // Initialisation de Firebase
+        function initializeFirebase() {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                console.log('[Admin] Firebase initialisé avec succès');
+                initializeApp();
+            } catch (error) {
+                console.error('[Admin] Erreur initialisation Firebase:', error);
+                alert('Erreur de configuration Firebase. Vérifiez votre configuration.');
+            }
+        }
+
+        // Vérification du mot de passe
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const error = document.getElementById('passwordError');
+            
+            if (input === ADMIN_PASSWORD) {
+                document.getElementById('passwordGate').style.display = 'none';
+                document.getElementById('adminApp').style.display = 'block';
+                localStorage.setItem('adminAuthenticated', 'true');
+            } else {
+                error.style.display = 'block';
+            }
+        }
+
+        // Initialisation de l'application
+        function initializeApp() {
+            // Vérifier l'authentification
+            if (ADMIN_PASSWORD && !localStorage.getItem('adminAuthenticated')) {
+                document.getElementById('passwordGate').style.display = 'block';
+            } else {
+                document.getElementById('adminApp').style.display = 'block';
+            }
+
+            // Initialiser les écouteurs d'événements
+            document.getElementById('sendButton').addEventListener('click', sendMessage);
+            document.getElementById('messageInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            // Charger les conversations
+            loadConversations();
+        }
+
+        // Charger la liste des conversations
+        function loadConversations() {
+            const container = document.getElementById('conversationsContainer');
+            
+            conversationsListener = db.collection('conversations')
+                .orderBy('lastUpdated', 'desc')
+                .onSnapshot(snapshot => {
+                    container.innerHTML = '';
+                    let count = 0;
+                    
+                    snapshot.forEach(doc => {
+                        addConversationToUI(doc.id, doc.data());
+                        count++;
+                    });
+                    
+                    document.getElementById('conversationsCount').textContent = count;
+                    
+                    if (count === 0) {
+                        container.innerHTML = '<div class="no-conversation"><p>Aucune conversation</p></div>';
+                    }
+                }, error => {
+                    console.error('[Admin] Erreur chargement conversations:', error);
+                    container.innerHTML = '<div class="no-conversation"><p>Erreur de chargement</p></div>';
+                });
+        }
+
+        // Ajouter une conversation à l'UI
+        function addConversationToUI(id, data) {
+            const container = document.getElementById('conversationsContainer');
+            const lastUpdated = data.lastUpdated?.toDate ? data.lastUpdated.toDate() : new Date();
+            const name = data.receptionistName || 'Réceptionniste';
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+            
+            const conversationDiv = document.createElement('div');
+            conversationDiv.className = 'conversation-item';
+            conversationDiv.setAttribute('data-id', id);
+            
+            conversationDiv.innerHTML = `
+                <div class="conversation-avatar">${initials}</div>
+                <div class="conversation-content">
+                    <div class="conversation-header">
+                        <span class="conversation-name">${name}</span>
+                        <span class="conversation-time">${formatTime(lastUpdated)}</span>
+                    </div>
+                    <div class="conversation-preview">
+                        ${data.title || 'Conversation ConciergeBot'}
+                    </div>
+                </div>
+            `;
+            
+            conversationDiv.addEventListener('click', () => selectConversation(id, data));
+            container.appendChild(conversationDiv);
+        }
+
+        // Sélectionner une conversation
+        function selectConversation(id, data) {
+            // Désélectionner l'ancienne conversation
+            document.querySelectorAll('.conversation-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Sélectionner la nouvelle
+            document.querySelector(`.conversation-item[data-id="${id}"]`).classList.add('active');
+            
+            currentConversationId = id;
+            
+            // Mettre à jour l'en-tête
+            document.getElementById('currentConversationName').textContent = 
+                data.receptionistName || 'Réceptionniste';
+            document.getElementById('conversationStatus').textContent = 
+                data.status === 'open' ? 'Ouverte' : 'Fermée';
+            
+            // Afficher la zone de saisie
+            document.getElementById('chatInput').style.display = 'flex';
+            
+            // Charger les messages
+            loadMessages(id);
+        }
+
+        // Charger les messages d'une conversation
+        function loadMessages(conversationId) {
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = '<div class="loading"><div class="loader"></div><span>Chargement des messages...</span></div>';
+            
+            // Arrêter l'ancien écouteur
+            if (messagesListener) {
+                messagesListener();
+            }
+            
+            messagesListener = db.collection('conversations')
+                .doc(conversationId)
+                .collection('messages')
+                .orderBy('createdAt', 'asc')
+                .onSnapshot(snapshot => {
+                    container.innerHTML = '';
+                    
+                    snapshot.forEach(doc => {
+                        addMessageToUI(doc.data());
+                    });
+                    
+                    // Faire défiler vers le bas
+                    container.scrollTop = container.scrollHeight;
+                    
+                    if (snapshot.empty) {
+                        container.innerHTML = '<div class="no-conversation"><p>Aucun message</p></div>';
+                    }
+                }, error => {
+                    console.error('[Admin] Erreur chargement messages:', error);
+                    container.innerHTML = '<div class="no-conversation"><p>Erreur de chargement</p></div>';
+                });
+        }
+
+        // Ajouter un message à l'UI
+        function addMessageToUI(messageData) {
+            const container = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            
+            const isAdmin = messageData.sender === 'admin';
+            messageDiv.className = `message ${isAdmin ? 'admin' : 'receptionist'}`;
+            
+            const time = messageData.createdAt?.toDate ? 
+                messageData.createdAt.toDate().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : 
+                new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.innerHTML = `
+                <div class="message-text">${escapeHtml(messageData.text)}</div>
+                <div class="message-time">${time} - ${isAdmin ? 'Admin' : (messageData.senderName || 'Réceptionniste')}</div>
+            `;
+            
+            container.appendChild(messageDiv);
+        }
+
+        // Envoyer un message
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text || !currentConversationId) return;
+            
+            const sendBtn = document.getElementById('sendButton');
+            sendBtn.disabled = true;
+            
+            try {
+                const messageData = {
+                    sender: 'admin',
+                    senderName: 'Administrateur',
+                    text: text,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    read: false
+                };
+                
+                await db.collection('conversations')
+                    .doc(currentConversationId)
+                    .collection('messages')
+                    .add(messageData);
+                
+                // Mettre à jour la date de dernière modification
+                await db.collection('conversations')
+                    .doc(currentConversationId)
+                    .update({
+                        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                
+                input.value = '';
+                input.style.height = 'auto';
+                
+            } catch (error) {
+                console.error('[Admin] Erreur envoi message:', error);
+                alert('Erreur lors de l\'envoi du message');
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+
+        // Utilitaires
+        function formatTime(date) {
+            const now = new Date();
+            const diff = now - date;
+            
+            if (diff < 60000) return 'À l\'instant';
+            if (diff < 3600000) return `${Math.floor(diff / 60000)} min`;
+            if (diff < 86400000) return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            
+            return date.toLocaleDateString('fr-FR');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Auto-resize textarea
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.getElementById('messageInput');
+            if (textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+                });
+            }
+            
+            // Initialiser Firebase
+            initializeFirebase();
+        });
+    </script>
+</body>
+</html>
